@@ -29,6 +29,7 @@
 
 <h4>Output da atividade:</h4>
 
+![Screenshot from 2022-10-10 22-15-12](https://user-images.githubusercontent.com/78119622/194975874-fe401b93-d3fd-4458-aece-8a1afe584f8b.png)
 
 <h4>Tecnologias Utilizadas.</h4>
  
