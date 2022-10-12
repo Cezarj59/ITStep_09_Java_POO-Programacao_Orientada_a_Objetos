@@ -1,24 +1,31 @@
 package homework_09;
 
+import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+
 public class Homework_09 {
 
     public static void main(String[] args) {
-        Aluno a1 = new Aluno("Junior Cezar", "03/02/1993", "Masculino", 69, 1.74);
-        Aluno a2 = new Aluno("Amber Santana", "30/11/2000", "Feminino", 69, 1.70);
+        Aluno a1 = new Aluno("Junior Cezar", LocalDate.of(1993, 2, 3), "Masculino", 69, 1.74);
+        Aluno a2 = new Aluno("Amber Santana", LocalDate.of(2000, 11, 3), "Feminino", 69, 1.70);
 
         System.out.println("Nome: " + a1.getNome()
                 + "\nNascimento: " + a1.getNascimento()
+                + "\nIdade :" + +a1.getIdade() + " anos"
                 + "\nGênero: " + a1.getGenero()
                 + "\nPeso: " + a1.getPeso()
                 + "\nAltura :" + a1.getAltura());
-        
+
         System.out.println("");
 
         System.out.println("Nome: " + a2.getNome()
                 + "\nNascimento: " + a2.getNascimento()
+                + "\nIdade :" + +a2.getIdade() + " anos"
                 + "\nGênero: " + a2.getGenero()
-                + "\nPeso: " + a2.getPeso()
-                + "\nAltura :" + a2.getAltura());
+                + "\nPeso: " + a2.getPesoFormatado()
+                + "\nAltura :" + a2.getAlturaFormatado());
 
     }
 }
@@ -26,7 +33,7 @@ public class Homework_09 {
 class Aluno {
 
     private String nome;
-    private String nascimento;
+    private LocalDate nascimento;
     private String genero;
     private double peso;
     private double altura;
@@ -34,7 +41,7 @@ class Aluno {
     public Aluno() {
     }
 
-    public Aluno(String nome, String nascimento, String genero, double peso, double altura) {
+    public Aluno(String nome, LocalDate nascimento, String genero, double peso, double altura) {
         this.nome = nome;
         this.nascimento = nascimento;
         this.genero = genero;
@@ -51,11 +58,21 @@ class Aluno {
     }
 
     public String getNascimento() {
-        return nascimento;
+
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        return formato.format(this.nascimento);
     }
 
-    public void setNacimento(String nacimento) {
+    public void setNacimento(LocalDate nacimento) {
         this.nascimento = nascimento;
+    }
+
+    public int getIdade() {
+        LocalDate hoje = LocalDate.now();
+        Period periodo = Period.between(this.nascimento, hoje);
+
+        return periodo.getYears();
     }
 
     public String getGenero() {
@@ -67,7 +84,13 @@ class Aluno {
     }
 
     public double getPeso() {
-        return peso;
+        return this.peso;
+    }
+
+    public String getPesoFormatado() {
+        DecimalFormat formato = new DecimalFormat("0.000");
+
+        return formato.format(this.peso);
     }
 
     public void setPeso(double peso) {
@@ -75,7 +98,13 @@ class Aluno {
     }
 
     public double getAltura() {
-        return altura;
+        return this.altura;
+    }
+
+    public String getAlturaFormatado() {
+        DecimalFormat formato = new DecimalFormat("0.00");
+
+        return formato.format(this.altura);
     }
 
     public void setAltura(double altura) {
